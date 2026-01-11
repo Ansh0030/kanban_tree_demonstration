@@ -1,78 +1,65 @@
-<<<<<<< HEAD
-# kanban_tree_demonstration
-A modern React + TypeScript frontend project featuring a recursive tree structure and a Kanban board with drag-and-drop interactions, built using Tailwind CSS and @dnd-kit.
-=======
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## 🌳 Tree View Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Recursive tree rendering
+- Expand / collapse nodes
+- Add new nodes
+- Rename nodes (inline editing)
+- Delete nodes
+- Drag and drop support
+- Visual hierarchy with indentation
+- Read-only nodes for external links (portfolio)
 
-## React Compiler
+### Key Concepts
+- Recursive components
+- Immutable state updates
+- Controlled inputs
+- Drag handles for better UX
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🗂 Kanban Board Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Three columns: **To Do**, **In Progress**, **Done**
+- Task count per column
+- Add, rename, and delete tasks
+- Drag tasks between columns
+- Grab-handle based dragging
+- Drag overlay preview for smooth UX
+- Color-coded column headers
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Key Concepts
+- @dnd-kit drag-and-drop system
+- DragOverlay for active item preview
+- State normalization
+- Component separation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🧭 Navigation
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A simple navigation bar allows switching between:
+- Tree View
+- Kanban Board
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Routing is implemented using **React Router DOM** without unnecessary abstraction.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
->>>>>>> 9475740 (Complete Assignment)
+---
+
+## 🎨 Styling
+
+- Tailwind CSS v4
+- Light grey container backgrounds
+- Color-coded buttons and column headers
+- Consistent spacing and layout
+- Clean, minimal UI focused on usability
+
+---
+
+## ▶️ Getting Started
+
+```bash
+npm install
+npm run dev
