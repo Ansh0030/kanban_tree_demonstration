@@ -1,16 +1,26 @@
+import { useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { FaGripVertical } from "react-icons/fa";
 import type { Task } from "../../types/kanban.types";
 
-export default function TaskCard({
-                                     task,
-                                     columnId
-                                 }: {
+type Props = {
     task: Task;
     columnId: string;
-}) {
-    const { attributes, listeners, setNodeRef, transform, isDragging } =
+    onRename: (columnId: string, taskId: string, text: string) => void;
+    onDelete: (columnId: string, taskId: string) => void;
+};
+
+export default function TaskCard({
+                                     task,
+                                     columnId,
+                                     onRename,
+                                     onDelete
+                                 }: Props) {
+    const [editing, setEditing] = useState(false);
+    const [value, setValue] = useState(task.text);
+
+    const { setNodeRef, attributes, listeners, transform, isDragging } =
         useDraggable({
             id: `${columnId}|${task.id}`
         });
@@ -24,17 +34,52 @@ export default function TaskCard({
         <div
             ref={setNodeRef}
             style={style}
-            className="bg-white p-2 rounded shadow flex items-center gap-2"
+            className={`bg-white p-2 rounded shadow flex items-center gap-2 ${
+                isDragging ? "ring-2 ring-blue-400" : ""
+            }`}
         >
-      <span
-          {...listeners}
-          {...attributes}
-          className="cursor-grab text-gray-400 hover:text-gray-600"
-      >
+            {/* DRAG HANDLE */}
+            <span
+                {...listeners}
+                {...attributes}
+                className="cursor-grab text-gray-400 hover:text-gray-600"
+            >
         <FaGripVertical />
       </span>
 
-            <span className="text-sm">{task.text}</span>
+            {/* TASK TEXT */}
+            {editing ? (
+                <input
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    onBlur={() => {
+                        onRename(columnId, task.id, value.trim() || task.text);
+                        setEditing(false);
+                    }}
+                    onKeyDown={(e) =>
+                        e.key === "Enter" &&
+                        (onRename(columnId, task.id, value.trim() || task.text),
+                            setEditing(false))
+                    }
+                    autoFocus
+                    className="border rounded px-1 text-sm flex-1"
+                />
+            ) : (
+                <span
+                    onDoubleClick={() => setEditing(true)}
+                    className="text-sm flex-1 cursor-pointer"
+                >
+          {task.text}
+        </span>
+            )}
+
+            {/* DELETE */}
+            <button
+                onClick={() => onDelete(columnId, task.id)}
+                className="text-xs text-red-500 hover:text-red-700"
+            >
+                ✕
+            </button>
         </div>
     );
 }
